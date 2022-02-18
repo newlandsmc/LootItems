@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,16 +19,18 @@ import java.util.Collections;
 import java.util.List;
 
 public class LootItems {
-    public static final List<ItemLike> lootItems = new ArrayList<>();
+    public final List<ItemLike> lootItems = new ArrayList<>();
 
-    private static FileConfiguration config;
-    private static MiniMessage miniMessage = null;
+    private FileConfiguration config;
 
-    public static void bootStrap(File file) {
+    private MiniMessage miniMessage = null;
+
+
+    public LootItems(File file) {
         if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) return;
         if (!file.exists()) {
             try {
-                if(!file.createNewFile()) return;
+                if (!file.createNewFile()) return;
             } catch (IOException error) {
                 error.printStackTrace();
             }
@@ -40,9 +43,12 @@ public class LootItems {
                 ConfigurationSection materialSection = items.getConfigurationSection(key);
                 String materialName = materialSection.getString("material");
                 if (materialName == null) continue;
+
                 Material material = Material.getMaterial(materialName);
                 if (material == null) continue;
+
                 String itemName = materialSection.getString("itemname");
+
                 List<String> lore = materialSection.getStringList("lore");
                 ItemStack itemStack = new ItemStack(material);
                 ItemMeta meta = itemStack.getItemMeta();
@@ -55,8 +61,8 @@ public class LootItems {
                     meta.lore(loreComponent);
                 }
                 itemStack.setItemMeta(meta);
-                boolean randomEnchants = materialSection.getBoolean("randomEnchants");
-                boolean allowTreasureEnchants = materialSection.getBoolean("allowTreasureEnchants");
+                boolean randomEnchants = materialSection.getBoolean("randomEnchants", false);
+                boolean allowTreasureEnchants = materialSection.getBoolean("allowTreasureEnchants", false);
                 List<EnchantmentLike> enchantmentLikes = new ArrayList<>();
                 if (!randomEnchants) {
                     ConfigurationSection enchants = materialSection.getConfigurationSection("enchants");
@@ -77,22 +83,12 @@ public class LootItems {
         }
     }
 
-    private static Component parseMiniMessage(String message) {
-        return miniMessage().deserialize(message);
-    }
-
-    private static MiniMessage miniMessage() {
-        if (miniMessage == null)
-            miniMessage = MiniMessage.miniMessage();
-        return miniMessage;
-    }
-
-    private static void addLoot(ItemLike itemLike) {
+    private void addLoot(ItemLike itemLike) {
         lootItems.add(itemLike);
     }
 
-    //Nullable
-    public static List<ItemStack> generateLoot(int amount) {
+    @Nullable
+    public List<ItemStack> generateLoot(int amount) {
         if (amount > lootItems.size()) amount = lootItems.size();
         Collections.shuffle(lootItems);
         List<ItemStack> loot = new ArrayList<>();
@@ -100,5 +96,19 @@ public class LootItems {
             loot.add(lootItems.get(i).getItem());
         }
         return loot;
+    }
+
+    private Component parseMiniMessage(String message) {
+        return miniMessage().deserialize(message);
+    }
+
+    private  MiniMessage miniMessage() {
+        if (miniMessage == null)
+            miniMessage = MiniMessage.miniMessage();
+        return miniMessage;
+    }
+
+    public void setMiniMessage(MiniMessage miniMessage) {
+        this.miniMessage = miniMessage;
     }
 }
