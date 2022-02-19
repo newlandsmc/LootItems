@@ -54,24 +54,7 @@ The compiled jar will be placed in directory `/build/libs/`.
 
 ## **Configuration**
 
-```yaml
-items:
-  1: 
-    material: DIAMOND_SWORD # Bukkit Material
-    itemname: "<rainbow:2>Duck Slayer" # Optional custom item name, supports minimessage
-    lore: ["<rainbow>Duck","<red>Dead"] # Optional item lore
-    randomEnchants: true # Apply random level 3 enchants on this item
-  2:
-    material: DIAMOND_SWORD
-    itemname: "<rainbow:2>Dragon Slayer"
-    lore: ["<rainbow>Forly, The life giver"]
-    randomEnchants: false
-    allowTreasureEnchants: false
-    enchants: # only used if randomEnchants = false
-      mending: # Add a new key for every enchant you want it to be, these enchants follow vanilla limits and will be limited to that if the max level is higher
-        minlevel: 2 # lowest level this enchant should have
-        maxlevel: 10 # max level for this enchant
-```
+See the [example](https://github.com/SemiVanilla-MC/LootItems/blob/rewrite/example.loot.json)
 
 ## **Support**
 
