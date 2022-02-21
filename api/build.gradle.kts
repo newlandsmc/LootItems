@@ -11,6 +11,7 @@ dependencies {
 
     testCompileOnly("org.projectlombok:lombok:1.18.22")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
+    compileOnly(files("../lib/AdvancedEnchantments-8.7.4.jar"))
 }
 
 dependencies {
@@ -22,6 +23,7 @@ dependencies {
 
     testCompileOnly("org.projectlombok:lombok:1.18.22")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
+    compileOnly(files("../lib/AdvancedEnchantments-8.7.4.jar"))
 }
 
 publishing {
