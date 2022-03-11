@@ -4,6 +4,7 @@ include(":api")
 
 dependencyResolutionManagement {
     repositories {
+        mavenLocal()
         mavenCentral()
         maven { // Paper
             url = uri("https://papermc.io/repo/repository/maven-public/")

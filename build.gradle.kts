@@ -33,6 +33,5 @@ subprojects {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT") // Paper
-    compileOnly("net.kyori:adventure-text-minimessage:4.10.0-SNAPSHOT") // Minimessage
+    compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT") // Paper
 }
