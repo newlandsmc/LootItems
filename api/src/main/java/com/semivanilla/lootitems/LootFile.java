@@ -16,6 +16,7 @@ public class LootFile {
     private File file;
     @Getter
     private List<LootPool> pools = new ArrayList<>();
+
     public LootFile(File file) {
         this.file = file;
         try {
