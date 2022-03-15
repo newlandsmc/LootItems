@@ -21,10 +21,10 @@ import java.util.*;
 public class ItemLootEntry extends LootEntry {
     private final List<String> lore = new ArrayList<>();
     private final List<EnchantmentEntry> enchantments = new ArrayList<>();
-    private boolean absoluteAmount, absoluteEnchantments;
-    private int minAmount, maxAmount, amountAbsolute, minEnchants, maxEnchants, enchantsAbsolute;
     private final String name;
     private final Material material;
+    private boolean absoluteAmount, absoluteEnchantments;
+    private int minAmount, maxAmount, amountAbsolute, minEnchants, maxEnchants, enchantsAbsolute;
 
     public ItemLootEntry(JsonObject jsonObject) {
         super(jsonObject);
@@ -129,12 +129,12 @@ public class ItemLootEntry extends LootEntry {
 
     @Getter
     public class EnchantmentEntry {
+        private final boolean absoluteLevel;
+        private final String name;
         private Enchantment enchantment;
         private int weight = 1, levelAbsolute;
-        private final boolean absoluteLevel;
         private boolean advancedEnchantments;
         private int minLevel, maxLevel;
-        private final String name;
 
         public EnchantmentEntry(JsonObject jsonObject) {
             name = jsonObject.get("name").getAsString();
