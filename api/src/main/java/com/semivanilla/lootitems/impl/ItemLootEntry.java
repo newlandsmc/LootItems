@@ -2,8 +2,8 @@ package com.semivanilla.lootitems.impl;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.semivanilla.expeditions.loot.LootEntry;
-import com.semivanilla.expeditions.manager.MessageManager;
+import com.semivanilla.lootitems.LootEntry;
+import com.semivanilla.lootitems.LootItems;
 import lombok.Getter;
 import net.advancedplugins.ae.api.AEAPI;
 import net.kyori.adventure.text.Component;
@@ -84,7 +84,7 @@ public class ItemLootEntry extends LootEntry {
         if (name != null) {
             Map<String, String> map = new HashMap<>();
             map.put("%player%", player.getName());
-            Component component = MessageManager.parse(name, map);
+            Component component = LootItems.parse(name, map);
             meta.displayName(component);
         }
         if (lore.size() > 0) {
@@ -92,7 +92,7 @@ public class ItemLootEntry extends LootEntry {
             Map<String, String> map = new HashMap<>();
             map.put("%player%", player.getName());
             for (String line : lore) {
-                loreComponents.add(MessageManager.parse(line, map));
+                loreComponents.add(LootItems.parse(line, map));
             }
             meta.lore(loreComponents);
         }
